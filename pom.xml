@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.techsenger.maven.root</groupId>
+        <artifactId>maven-root</artifactId>
+        <version>1.7.0-SNAPSHOT</version>
+    </parent>
+
+    <groupId>com.techsenger.fontjars</groupId>
+    <artifactId>fontjars</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>FontJars</name>
+    <description>Techsenger FontJars</description>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
+
+    <url>https://github.com/techsenger/fontjars</url>
+
+    <scm>
+        <connection>scm:git:https://github.com/techsenger/fontjars.git</connection>
+        <developerConnection>scm:git:https://github.com/techsenger/fontjars.git</developerConnection>
+        <url>https://github.com/techsenger/fontjars</url>
+    </scm>
+
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/techsenger/fontjars/issues</url>
+    </issueManagement>
+
+    <developers>
+        <developer>
+            <id>pcastornii</id>
+            <name>Pavel Castornii</name>
+        </developer>
+    </developers>
+
+    <properties>
+        <maven.compiler.release>25</maven.compiler.release>
+        <techsenger.icons.version>1.0.0-SNAPSHOT</techsenger.icons.version>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>repsy-snapshots</id>
+            <url>https://repo.repsy.io/mvn/techsenger/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.techsenger.fontjars</groupId>
+                <artifactId>fontjars-inter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.techsenger.fontjars</groupId>
+                <artifactId>fontjars-jetbrains-mono</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.techsenger.fontjars</groupId>
+                <artifactId>fontjars-mdi</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.techsenger.fontjars</groupId>
+                <artifactId>fontjars-techsenger-icons</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <modules>
+        <module>fontjars-inter</module>
+        <module>fontjars-jetbrains-mono</module>
+        <module>fontjars-mdi</module>
+        <module>fontjars-techsenger-icons</module>
+    </modules>
+</project>

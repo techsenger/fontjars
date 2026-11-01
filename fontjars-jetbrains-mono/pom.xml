@@ -1,0 +1,54 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.techsenger.fontjars</groupId>
+        <artifactId>fontjars</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <groupId>com.techsenger.fontjars</groupId>
+    <artifactId>fontjars-jetbrains-mono</artifactId>
+    <packaging>jar</packaging>
+    <name>FontJars - JetBrains Mono</name>
+    <description>JetBrains Mono font family packaged as a modular JAR</description>
+
+    <build>
+        <resources>
+            <resource>
+                <filtering>false</filtering>
+                <directory>${project.build.directory}/generated-resources/fonts</directory>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>io.github.download-maven-plugin</groupId>
+                <artifactId>download-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>download-fonts</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>wget</goal>
+                        </goals>
+                        <configuration>
+                            <url>https://github.com/JetBrains/JetBrainsMono/releases/download/v2.304/JetBrainsMono-2.304.zip</url>
+                            <sha256>6f6376c6ed2960ea8a963cd7387ec9d76e3f629125bc33d1fdcd7eb7012f7bbf</sha256>
+                            <unpack>true</unpack>
+                            <includes>
+                                <include>fonts/ttf/JetBrainsMono-*.ttf</include>
+                                <include>OFL.txt</include>
+                            </includes>
+                            <fileMappers>
+                                <org.codehaus.plexus.components.io.filemappers.FlattenFileMapper/>
+                            </fileMappers>
+                            <outputDirectory>
+                                ${project.build.directory}/generated-resources/fonts/com/techsenger/fontjars/jetbrainsmono
+                            </outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

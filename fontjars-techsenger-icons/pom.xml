@@ -1,0 +1,53 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.techsenger.fontjars</groupId>
+        <artifactId>fontjars</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <groupId>com.techsenger.fontjars</groupId>
+    <artifactId>fontjars-techsenger-icons</artifactId>
+    <packaging>jar</packaging>
+    <name>FontJars - Techsenger Icons</name>
+    <description>Techsenger Icons font packaged as a modular JAR</description>
+
+    <build>
+        <resources>
+            <resource>
+                <filtering>false</filtering>
+                <directory>${project.build.directory}/generated-resources/fonts</directory>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>io.github.download-maven-plugin</groupId>
+                <artifactId>download-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>download-fonts</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>wget</goal>
+                        </goals>
+                        <configuration>
+                            <!-- A SNAPSHOT version lives in the release with the tag snapshot, any other version in the release v<version>. -->
+                            <url>https://github.com/techsenger/icons/releases/download/snapshot/techsenger-icons-${techsenger.icons.version}.zip</url>
+                            <!-- Snapshot of the font: it changes, so there is no checksum and no cache. -->
+                            <skipCache>true</skipCache>
+                            <unpack>true</unpack>
+                            <includes>
+                                <include>techsenger-icons-mdi.ttf</include>
+                                <include>LICENSE-MDI.txt</include>
+                            </includes>
+                            <outputDirectory>
+                                ${project.build.directory}/generated-resources/fonts/com/techsenger/fontjars/techsengericons
+                            </outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

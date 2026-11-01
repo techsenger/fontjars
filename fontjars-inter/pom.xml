@@ -1,0 +1,54 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.techsenger.fontjars</groupId>
+        <artifactId>fontjars</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <groupId>com.techsenger.fontjars</groupId>
+    <artifactId>fontjars-inter</artifactId>
+    <packaging>jar</packaging>
+    <name>FontJars - Inter</name>
+    <description>Inter font family packaged as a modular JAR</description>
+
+    <build>
+        <resources>
+            <resource>
+                <filtering>false</filtering>
+                <directory>${project.build.directory}/generated-resources/fonts</directory>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>io.github.download-maven-plugin</groupId>
+                <artifactId>download-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>download-fonts</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>wget</goal>
+                        </goals>
+                        <configuration>
+                            <url>https://github.com/rsms/inter/releases/download/v4.1/Inter-4.1.zip</url>
+                            <sha256>9883fdd4a49d4fb66bd8177ba6625ef9a64aa45899767dde3d36aa425756b11e</sha256>
+                            <unpack>true</unpack>
+                            <includes>
+                                <include>extras/ttf/Inter-*.ttf</include>
+                                <include>LICENSE.txt</include>
+                            </includes>
+                            <fileMappers>
+                                <org.codehaus.plexus.components.io.filemappers.FlattenFileMapper/>
+                            </fileMappers>
+                            <outputDirectory>
+                                ${project.build.directory}/generated-resources/fonts/com/techsenger/fontjars/inter
+                            </outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
