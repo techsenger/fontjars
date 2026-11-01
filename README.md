@@ -1,7 +1,10 @@
 # Techsenger FontJars
 
 Techsenger FontJars packages fonts as modular JARs (JPMS), with one JAR per font family. Each module contains the font
-files and a single anchor class that other modules use to access those files as resources. No additional API is provided.
+files, the license of the font and an enum with a constant for every file, so no names of files are written by hand
+in the code that uses the fonts.
+
+The project contains only the fonts that are used by Techsenger projects. It is not a general collection of fonts.
 
 The font files are not stored in the source repository; they are downloaded from their official sources during the build.
 
@@ -24,22 +27,24 @@ under its own license, which is stored in the folder of the font inside its JAR.
 Key features of FontJars include:
 
 * One JPMS module and one JAR per font family, so an application takes only the fonts it needs.
-* An anchor class in every module: it gives access to the font files without any additional API.
+* An enum in every module with a constant for every font file; it gives the URL of the file, so the code does not
+  depend on resource paths.
 * No binary files in the sources: fonts are downloaded during the build and verified by SHA-256.
 * Only static fonts are included: one file per style (Regular, Bold, Italic, ...), without variable fonts.
 * The license of every font is packaged next to the font files.
 
 ## Modules <a name="modules"></a>
 
-| Artifact | Module | Anchor | Font |
-|----------|--------|--------|------|
+| Artifact | Module | Enum | Font |
+|----------|--------|------|------|
 | `fontjars-inter` | `com.techsenger.fontjars.inter` | `Inter` | [Inter](https://github.com/rsms/inter) |
 | `fontjars-jetbrains-mono` | `com.techsenger.fontjars.jetbrainsmono` | `JetBrainsMono` | [JetBrains Mono](https://github.com/JetBrains/JetBrainsMono) |
 | `fontjars-mdi` | `com.techsenger.fontjars.mdi` | `Mdi` | [Material Design Icons](https://pictogrammers.com/library/mdi/) |
 | `fontjars-techsenger-icons` | `com.techsenger.fontjars.techsengericons` | `TechsengerIcons` | [Techsenger Icons](https://github.com/techsenger/icons) |
 
-The files of a font are resources of the package that has the name of the module, and the anchor class lies in the same
-package. The package is exported and open, so any module can use the anchor class and read the files.
+The files of a font are resources of the package that has the name of the module, and the enum lies in the same package.
+The name of a constant is the name of the file without the name of the font and the extension: `Inter-BoldItalic.ttf`
+is `Inter.BOLD_ITALIC`. The package is exported, so any module can use the enum.
 
 ## Usage <a name="usage"></a>
 
@@ -51,16 +56,19 @@ module com.example.app {
 }
 ```
 
-Read a font file through the anchor class and register it. For example, in JavaFX:
+Get the URL of a font file from the enum and register the font. For example, in JavaFX:
 
 ```java
-try (var stream = Inter.class.getResourceAsStream("Inter-Regular.ttf")) {
-    Font.loadFont(stream, 14);
-}
+Font.loadFont(Inter.REGULAR.getUrl().toExternalForm(), 14);
 ```
 
-The names of the files are the names from the official distribution of the font, for example `Inter-Regular.ttf` or
-`JetBrainsMono-Bold.ttf`. The license of the font lies in the same package.
+To register all the files of a font, go through the constants:
+
+```java
+for (var font : Inter.values()) {
+    Font.loadFont(font.getUrl().toExternalForm(), 14);
+}
+```
 
 ## Requirements <a name="requirements"></a>
 

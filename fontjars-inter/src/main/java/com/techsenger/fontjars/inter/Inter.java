@@ -16,16 +16,81 @@
 
 package com.techsenger.fontjars.inter;
 
+import java.net.URL;
+import java.util.Objects;
+
 /**
- * Anchor of the Inter font module. Files of the font are resources of this package, which other modules read with
- * {@code Inter.class.getResourceAsStream(name)}. The files are downloaded during the build and are not stored in
- * the sources.
+ * Font files of the module. The files are downloaded during the build and are packaged next to this enum.
  *
  * @author Pavel Castornii
  */
-public final class Inter {
+public enum Inter {
 
-    private Inter() {
-        // empty
+    /** The file {@code Inter-Thin.ttf}. */
+    THIN("Inter-Thin.ttf"),
+
+    /** The file {@code Inter-ThinItalic.ttf}. */
+    THIN_ITALIC("Inter-ThinItalic.ttf"),
+
+    /** The file {@code Inter-ExtraLight.ttf}. */
+    EXTRA_LIGHT("Inter-ExtraLight.ttf"),
+
+    /** The file {@code Inter-ExtraLightItalic.ttf}. */
+    EXTRA_LIGHT_ITALIC("Inter-ExtraLightItalic.ttf"),
+
+    /** The file {@code Inter-Light.ttf}. */
+    LIGHT("Inter-Light.ttf"),
+
+    /** The file {@code Inter-LightItalic.ttf}. */
+    LIGHT_ITALIC("Inter-LightItalic.ttf"),
+
+    /** The file {@code Inter-Regular.ttf}. */
+    REGULAR("Inter-Regular.ttf"),
+
+    /** The file {@code Inter-Italic.ttf}. */
+    ITALIC("Inter-Italic.ttf"),
+
+    /** The file {@code Inter-Medium.ttf}. */
+    MEDIUM("Inter-Medium.ttf"),
+
+    /** The file {@code Inter-MediumItalic.ttf}. */
+    MEDIUM_ITALIC("Inter-MediumItalic.ttf"),
+
+    /** The file {@code Inter-SemiBold.ttf}. */
+    SEMI_BOLD("Inter-SemiBold.ttf"),
+
+    /** The file {@code Inter-SemiBoldItalic.ttf}. */
+    SEMI_BOLD_ITALIC("Inter-SemiBoldItalic.ttf"),
+
+    /** The file {@code Inter-Bold.ttf}. */
+    BOLD("Inter-Bold.ttf"),
+
+    /** The file {@code Inter-BoldItalic.ttf}. */
+    BOLD_ITALIC("Inter-BoldItalic.ttf"),
+
+    /** The file {@code Inter-ExtraBold.ttf}. */
+    EXTRA_BOLD("Inter-ExtraBold.ttf"),
+
+    /** The file {@code Inter-ExtraBoldItalic.ttf}. */
+    EXTRA_BOLD_ITALIC("Inter-ExtraBoldItalic.ttf"),
+
+    /** The file {@code Inter-Black.ttf}. */
+    BLACK("Inter-Black.ttf"),
+
+    /** The file {@code Inter-BlackItalic.ttf}. */
+    BLACK_ITALIC("Inter-BlackItalic.ttf");
+
+    private final String fileName;
+
+    Inter(String fileName) {
+        this.fileName = fileName;
+    }
+
+    /**
+     * Returns the URL of the font file. The URL can be used by any module.
+     */
+    public URL getUrl() {
+        var url = Inter.class.getResource(fileName);
+        return Objects.requireNonNull(url, "Font file " + fileName + " is not found");
     }
 }

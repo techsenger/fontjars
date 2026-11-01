@@ -16,16 +16,30 @@
 
 package com.techsenger.fontjars.techsengericons;
 
+import java.net.URL;
+import java.util.Objects;
+
 /**
- * Anchor of the Techsenger Icons font module. Files of the font are resources of this package, which other modules
- * read with {@code TechsengerIcons.class.getResourceAsStream(name)}. The files are downloaded during the build and are
- * not stored in the sources.
+ * Font files of the module. The files are downloaded during the build and are packaged next to this enum.
  *
  * @author Pavel Castornii
  */
-public final class TechsengerIcons {
+public enum TechsengerIcons {
 
-    private TechsengerIcons() {
-        // empty
+    /** The file {@code techsenger-icons-mdi.ttf}. */
+    MDI("techsenger-icons-mdi.ttf");
+
+    private final String fileName;
+
+    TechsengerIcons(String fileName) {
+        this.fileName = fileName;
+    }
+
+    /**
+     * Returns the URL of the font file. The URL can be used by any module.
+     */
+    public URL getUrl() {
+        var url = TechsengerIcons.class.getResource(fileName);
+        return Objects.requireNonNull(url, "Font file " + fileName + " is not found");
     }
 }

@@ -16,16 +16,30 @@
 
 package com.techsenger.fontjars.mdi;
 
+import java.net.URL;
+import java.util.Objects;
+
 /**
- * Anchor of the Material Design Icons (MDI) font module. Files of the font are resources of this package, which other
- * modules read with {@code Mdi.class.getResourceAsStream(name)}. The files are downloaded during the build and are not
- * stored in the sources.
+ * Font files of the module. The files are downloaded during the build and are packaged next to this enum.
  *
  * @author Pavel Castornii
  */
-public final class Mdi {
+public enum Mdi {
 
-    private Mdi() {
-        // empty
+    /** The file {@code materialdesignicons-webfont.ttf}. */
+    WEBFONT("materialdesignicons-webfont.ttf");
+
+    private final String fileName;
+
+    Mdi(String fileName) {
+        this.fileName = fileName;
+    }
+
+    /**
+     * Returns the URL of the font file. The URL can be used by any module.
+     */
+    public URL getUrl() {
+        var url = Mdi.class.getResource(fileName);
+        return Objects.requireNonNull(url, "Font file " + fileName + " is not found");
     }
 }
